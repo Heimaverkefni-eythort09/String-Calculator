@@ -10,7 +10,7 @@ public class CalculatorTest {
 	}
 
 	@Test
-	public public void testEmptyString(){
+	public void testEmptyString(){
 		assertEquals(0, Calculator.add(""));
 	}
 }
