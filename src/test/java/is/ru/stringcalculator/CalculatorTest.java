@@ -34,4 +34,9 @@ public class CalculatorTest {
 		assertEquals(6, Calculator.add("1\n2,3"));
 	}
 
+	@Test
+	public void testMultipleNewLine(){
+		assertEquals(45, Calculator.add("1\n2\n3\n4\n5\n6,7,8\n9"));
+	}
+
 }
