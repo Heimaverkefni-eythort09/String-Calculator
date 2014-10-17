@@ -1,4 +1,7 @@
 package is.ru.stringcalculator;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Calculator{
 
@@ -18,16 +21,40 @@ public class Calculator{
 	}
 
 	private static String[] splitNumbers(String number){
+		
+		//athuga hvort við viljum nota nýja delimiter
+		if(number.startsWith("//")){
+			Matcher m = Pattern.compile("//(.)\n(.*)").matcher(number);
+			m.matches();
+			String delimiter = m.group(1);
+			String restOfNumber = m.group(2);
+			return restOfNumber.split(delimiter);
+		}
+
 		return number.split(",|\n");
 	}
 
-	private static int sum(String[] splitNumbers){
+	private static int sum(String[] numbers){
 		int total = 0;
-			for(int i = 0; i < splitNumbers.length; i++){
-				total += toInt(splitNumbers[i]);
+			for(int i = 0; i < numbers.length; i++){
+				total += toInt(numbers[i]);
 			}
 			return total;
 	}
+
+	// private static int[] handleNewDelimeter(String numbers){
+
+	// 	if(!containsDelimiter(numbers)){
+	// 		String delimiter = String.valueOf(numbers.charAt(2));
+	// 		String newStr = numbers.substring(4);
+	// 		String[] numbers = newStr.split(String.valueOf(delimiter));
+
+	// 		return 0;
+	// 	}
+
+	// 	String delimiterString =
+
+
 
 }
 

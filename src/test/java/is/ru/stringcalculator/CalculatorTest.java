@@ -39,4 +39,10 @@ public class CalculatorTest {
 		assertEquals(45, Calculator.add("1\n2\n3\n4\n5\n6,7,8\n9"));
 	}
 
+	@Test
+	public void testNewDelimiter(){
+		assertEquals(6, Calculator.add("//;\n1;2;3"));
+		assertEquals(6, Calculator.add("//#\n1#2#3"));
+	}
+
 }
