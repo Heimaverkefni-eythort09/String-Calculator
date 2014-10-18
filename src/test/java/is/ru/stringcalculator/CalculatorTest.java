@@ -45,22 +45,37 @@ public class CalculatorTest {
 		assertEquals(6, Calculator.add("//#\n1#2#3"));
 	}
 
-	@Test public void testLargerThanThousand(){
+	@Test 
+	public void testLargerThanThousand(){
 		assertEquals(6, Calculator.add("1,2,3,1002"));
 		assertEquals(45, Calculator.add("//;\n5;10;20;2000;10;4999"));
 	}
 
-	@Test public void testNegativeNumbers(){
+	@Test 
+	public void testNegativeNumbers(){
 		try{
-			int test = Calculator.add("-1,-2,-3,1,2,3");
+			Calculator.add("-1,-2,-3,1,2,3");
 		}
 		catch(IllegalArgumentException foo){
-			assertEquals(foo.getMessage(),"Negatives not allowed: -1, -2, -3");
+			//assertEquals(foo.getMessage(),"Negatives not allowed: -1, -2, -3", foo.getMessage());
+			assertEquals("Negatives not allowed: -1, -2, -3",foo.getMessage());
 		}
 	}
 
-	@Test public void testMultipleDelimiterLength(){
+	@Test 
+	public void testMultipleDelimiterLength(){
 		assertEquals(6, Calculator.add("//[**]\n1**2**3"));
 	}
+
+	@Test
+	public void testMultipleAspects(){
+		assertEquals(10, Calculator.add("//&\n1&2&1900&3&4"));
+	}
+
+	@Test
+	public void testNegativeAgain(){
+		assertEquals("Negatives not allowed: -1, -5", Calculator.add("-1,1,2,3,-5"));
+	}
+
 
 }

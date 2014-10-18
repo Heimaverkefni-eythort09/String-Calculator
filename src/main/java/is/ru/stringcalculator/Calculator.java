@@ -22,7 +22,7 @@ public class Calculator{
 		
 		if(text.startsWith("//")){
 			if(text.matches("^(//.\n.*)$"))
-				return sum(newdelimiter(text));
+				return sum(newDelimiter(text));
 			if(text.matches("^(//\\[.+\\]\n.*)$"))
 				return (delimOfAnyLength(text));	
 		}
@@ -43,7 +43,7 @@ public class Calculator{
 		return number.split(",|\n");
 	}
 
-	private static String[] newdelimiter(String number){
+	private static String[] newDelimiter(String number){
 		Matcher m = Pattern.compile("//(.)\n(.*)").matcher(number);
 		m.matches();
 		String delimiter = m.group(1);
@@ -66,13 +66,14 @@ public class Calculator{
 
 	private static void illegalNegatives(String number) throws IllegalArgumentException{
 		String[] inputs = number.split("-");
-		String message = "Negatives not allowed ";
+		String message = "Negatives not allowed: ";
 		for(int i = 1; i <  inputs.length; i++){
 			message += "-" + inputs[i].substring(0,1);
 			if(i < inputs.length - 1){
 				message += ", ";
 			}
 		}
+		throw new IllegalArgumentException(message);
 	}
 
 	private static int delimOfAnyLength(String number){
@@ -81,26 +82,7 @@ public class Calculator{
 		String delimiter = foo.group(1);
 		String restOfNumber = foo.group(2);
 		return sum(restOfNumber.split(Pattern.quote(delimiter)));
-		// String streng[] = restOfNumber.split(Pattern.quote(delimiter));
-		// int sum = 0;
-		// for(int i = 0; i < streng.length; i++){
-		// 	sum += toInt(streng[i]);
-		// }
-		// return sum;
 	}
-	//private static int[] handleNewDelimeter(String numbers){
-
-	// 	if(!containsDelimiter(numbers)){
-	// 		String delimiter = String.valueOf(numbers.charAt(2));
-	// 		String newStr = numbers.substring(4);
-	// 		String[] numbers = newStr.split(String.valueOf(delimiter));
-
-	// 		return 0;
-	// 	}
-
-	// 	String delimiterString =
-
-
 
 }
 
