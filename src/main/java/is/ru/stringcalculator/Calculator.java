@@ -38,12 +38,24 @@ public class Calculator{
 		int total = 0;
 			for(int i = 0; i < numbers.length; i++){
 				total += toInt(numbers[i]);
+				//Here I check if the number is larger than 1000 and 
 				if(toInt(numbers[i]) > 1000){
 					total -= toInt(numbers[i]);
 				}	
 				
 			}
 			return total;
+	}
+
+	private static void illegalNegatives(String text) throws IllegalArgumentException{
+		String[] inputs = text.split("-");
+		String message = "Negatives not allowed ";
+		for(int i = 1; i <  inputs.length; i++){
+			message += "-" + inputs[i].substring(0,1);
+			if(i < inputs.length - 1){
+				message += ", ";
+			}
+		}
 	}
 
 	// private static int[] handleNewDelimeter(String numbers){

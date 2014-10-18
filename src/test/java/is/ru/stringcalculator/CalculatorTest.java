@@ -47,6 +47,16 @@ public class CalculatorTest {
 
 	@Test public void testLargerThanThousand(){
 		assertEquals(6, Calculator.add("1,2,3,1002"));
+		assertEquals(45, Calculator.add("//;\n5;10;20;2000;10;4999"));
+	}
+
+	@Test public void testNegativeNumbers(){
+		try{
+			int test = Calculator.add("-1,-2,-3,1,2,3");
+		}
+		catch(IllegalArgumentException foo){
+			assertEquals(foo.getMessage(),"Negatives not allowed: -1, -2, -3");
+		}
 	}
 
 }
