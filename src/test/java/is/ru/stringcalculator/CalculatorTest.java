@@ -59,4 +59,8 @@ public class CalculatorTest {
 		}
 	}
 
+	@Test public void testMultipleDelimiterLength(){
+		assertEquals(6, Calculator.add("//[**]\n1**2**3"));
+	}
+
 }

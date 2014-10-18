@@ -7,12 +7,30 @@ public class Calculator{
 
 	public static int add(String text){
 
-		if (text.equals(""))
+		// if (text.equals(""))
+		// 	return 0;
+		// else if (text.contains(",") || text.contains("\n"))
+		// 	return sum(splitNumbers(text));
+		// else
+		// 	return 1;
+		if(text.equals(""))
 			return 0;
-		else if (text.contains(",") || text.contains("\n"))
+		
+		if(text.contains("-")){
+			illegalNegatives(text);
+		}
+		
+		if(text.startsWith("//")){
+			if(text.matches("^(//.\n.*)$"))
+				return sum(newdelimiter(text));
+			if(text.matches("^(//\\[.+\\]\n.*)$"))
+				return (delimOfAnyLength(text));	
+		}
+		
+		if (text.contains(",") || text.contains("\n"))
 			return sum(splitNumbers(text));
-		else
-			return 1;
+
+		return toInt(text);
 
 	}
 
@@ -22,33 +40,32 @@ public class Calculator{
 
 	private static String[] splitNumbers(String number){
 		
-		//athuga hvort við viljum nota nýja delimiter
-		if(number.startsWith("//")){
-			Matcher m = Pattern.compile("//(.)\n(.*)").matcher(number);
-			m.matches();
-			String delimiter = m.group(1);
-			String restOfNumber = m.group(2);
-			return restOfNumber.split(delimiter);
-		}
-
 		return number.split(",|\n");
 	}
 
-	private static int sum(String[] numbers){
+	private static String[] newdelimiter(String number){
+		Matcher m = Pattern.compile("//(.)\n(.*)").matcher(number);
+		m.matches();
+		String delimiter = m.group(1);
+		String restOfNumber = m.group(2);
+		return (restOfNumber.split(delimiter));
+	}
+
+	private static int sum(String[] number){
 		int total = 0;
-			for(int i = 0; i < numbers.length; i++){
-				total += toInt(numbers[i]);
+			for(int i = 0; i < number.length; i++){
+				total += toInt(number[i]);
 				//Here I check if the number is larger than 1000 and 
-				if(toInt(numbers[i]) > 1000){
-					total -= toInt(numbers[i]);
+				if(toInt(number[i]) > 1000){
+					total -= toInt(number[i]);
 				}	
 				
 			}
 			return total;
 	}
 
-	private static void illegalNegatives(String text) throws IllegalArgumentException{
-		String[] inputs = text.split("-");
+	private static void illegalNegatives(String number) throws IllegalArgumentException{
+		String[] inputs = number.split("-");
 		String message = "Negatives not allowed ";
 		for(int i = 1; i <  inputs.length; i++){
 			message += "-" + inputs[i].substring(0,1);
@@ -58,7 +75,20 @@ public class Calculator{
 		}
 	}
 
-	// private static int[] handleNewDelimeter(String numbers){
+	private static int delimOfAnyLength(String number){
+		Matcher foo = Pattern.compile("//\\[(.*)\\]\n(.*)").matcher(number);
+		foo.matches();
+		String delimiter = foo.group(1);
+		String restOfNumber = foo.group(2);
+		return sum(restOfNumber.split(Pattern.quote(delimiter)));
+		// String streng[] = restOfNumber.split(Pattern.quote(delimiter));
+		// int sum = 0;
+		// for(int i = 0; i < streng.length; i++){
+		// 	sum += toInt(streng[i]);
+		// }
+		// return sum;
+	}
+	//private static int[] handleNewDelimeter(String numbers){
 
 	// 	if(!containsDelimiter(numbers)){
 	// 		String delimiter = String.valueOf(numbers.charAt(2));
