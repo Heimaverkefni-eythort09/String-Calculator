@@ -38,6 +38,10 @@ public class Calculator{
 		int total = 0;
 			for(int i = 0; i < numbers.length; i++){
 				total += toInt(numbers[i]);
+				if(toInt(numbers[i]) > 1000){
+					total -= toInt(numbers[i]);
+				}	
+				
 			}
 			return total;
 	}
